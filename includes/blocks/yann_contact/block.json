@@ -1,0 +1,28 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "yannyann-box/contact",
+	"title": "Contact Box",
+	"icon": "list-view",
+	"category": "common",
+	"attributes": {
+		"phone": {
+			"type": "string",
+			"source": "html",
+			"selector": "p.phone"
+		},
+		"fax": {
+			"type": "string",
+			"source": "html",
+			"selector": "p.fax"
+		},
+		"address": {
+			"type": "string",
+			"source": "html",
+			"selector": "p.address"
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/style-index.css",
+	"style": "file:./build/index.css"
+}

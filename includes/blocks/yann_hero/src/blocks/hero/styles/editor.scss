@@ -1,0 +1,43 @@
+.editor-block-list__block[data-type="yann/hero"] {
+
+	p,
+	h1,
+	h5 {
+		line-height: 1.2 !important;
+	}
+
+	.typed-content {
+
+		p {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+
+		p:first-child {
+			margin-top: 0;
+		}
+	}
+
+	.animated-headline--strings {
+
+		p {
+			color: inherit;
+			display: none;
+		}
+
+		p:first-child {
+			display: block;
+		}
+	}
+
+	&.is-typing,
+	.yann-hero.is-selected {
+
+		.animated-headline--strings {
+
+			p {
+				display: block;
+			}
+		}
+	}
+}

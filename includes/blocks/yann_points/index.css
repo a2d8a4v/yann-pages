@@ -1,0 +1,116 @@
+.is-center {
+  margin:0 auto;display: table;
+}
+.yann-points {
+  padding: 40px 0;
+}
+
+.yann-points .yann-points-container {
+  max-width: 1400px;
+  margin: auto;
+  text-align: center;
+}
+
+.yann-points h2 {
+  font-family: "Montserrat ExtraLight", sans-serif;
+  font-size: calc(2rem + 1vw);
+}
+
+.yann-points h2 span {
+  font-family: "Montserrat ExtraBold", sans-serif;
+  font-size: calc(2rem + 1vw);
+}
+
+.yann-points .yann-points-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.yann-points .point {
+  display: flex;
+  align-items: center;
+  margin: 40px 0;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.yann-points .point .thumbnail {
+  position: relative;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.yann-points .point .thumb-img {
+  width: calc(100px + 1vw);
+  height: calc(100px + 1vw);
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+}
+
+/* .yann-points .point .thumb-img-1 {
+  background-image: url("https://i.imgur.com/u5Atkp1.jpg");
+}
+
+.yann-points .point .thumb-img-2 {
+  background-image: url("https://i.imgur.com/BXmx3Va.jpg");
+}
+
+.yann-points .point .thumb-img-3 {
+  background-image: url("https://i.imgur.com/xReetAx.jpg");
+}
+
+.yann-points .point .thumb-img-4 {
+  background-image: url("https://i.imgur.com/kjGXwRX.jpg");
+} */
+
+.yann-points .point h3 {
+  text-align: left;
+  font-family: "Montserrat Medium", sans-serif;
+  font-size: calc(0.6rem + 2vw);
+  margin-left: 20px;
+}
+
+.yann-points .point h3 span {
+  font-family: "Montserrat ExtraLight", sans-serif;
+  font-size: calc(0.6rem + 2vw);
+}
+
+@media(max-width:768px) {
+  .yann-points h3 {
+    font-size: calc(0.9rem + 2.1vw)!important;
+  }
+  .yann-points h3 span {
+    font-size: calc(0.9rem + 2.1vw)!important;
+  }
+}
+
+.yann-points .point .thumb-border {
+  width: calc(100px + 1vw);
+  height: calc(100px + 1vw);
+  border: 1px solid #000;
+  border-radius: 50%;
+  position: absolute;
+  left: -6px;
+  top: -6px;
+}
+
+@media screen and (max-width: 768px) {
+  .yann-points .yann-points-wrapper {
+    display: block;
+  }
+
+  .yann-points .point {
+    justify-content: center;
+  }
+
+  .yann-points .point h3,
+  .yann-points .point h3 span {
+    font-size: calc(0.9rem + 1vw);
+  }
+}

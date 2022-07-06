@@ -1,0 +1,26 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "yannyann-box/profilecard",
+	"title": "Profilecard Box",
+	"icon": "id",
+	"category": "common",
+	"attributes": {
+		"type": {
+			"type": "string",
+			"default": ["Teacher"]
+		},
+		"title": {
+			"type": "string",
+			"source": "html",
+			"selector": "span"
+		},
+		"id": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/style-index.css",
+	"style": "file:./build/index.css"
+}

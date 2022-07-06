@@ -1,0 +1,53 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "yannyann-box/points",
+	"title": "Points Box",
+	"icon": "ellipsis",
+	"category": "common",
+	"attributes": {
+		"title_a": {
+			"type": "string",
+			"source": "html",
+			"selector": "span.yann-points-span-a"
+		},
+		"text_a": {
+			"type": "string",
+			"source": "html",
+			"selector": "p.yann-points-p-a"
+		},
+		"title_b": {
+			"type": "string",
+			"source": "html",
+			"selector": "span.yann-points-span-b"
+		},
+		"text_b": {
+			"type": "string",
+			"source": "html",
+			"selector": "p.yann-points-p-b"
+		},
+		"title_c": {
+			"type": "string",
+			"source": "html",
+			"selector": "span.yann-points-span-c"
+		},
+		"text_c": {
+			"type": "string",
+			"source": "html",
+			"selector": "p.yann-points-p-c"
+		},
+		"title_d": {
+			"type": "string",
+			"source": "html",
+			"selector": "span.yann-points-span-d"
+		},
+		"text_d": {
+			"type": "string",
+			"source": "html",
+			"selector": "p.yann-points-p-d"
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/style-index.css",
+	"style": "file:./build/index.css"
+}

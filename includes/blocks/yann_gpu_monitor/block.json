@@ -1,0 +1,23 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "yannyann-box/gpumonitor",
+	"title": "GPU Monitor Box",
+	"icon": "editor-kitchensink",
+	"category": "common",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"source": "html",
+			"selector": "h3.yannyann-gpumonitor-h3"
+		},
+		"description": {
+			"type": "string",
+			"source": "html",
+			"selector": "span.yannyann-gpumonitor-span"
+		}
+	},
+	"editorScript": "file:build/index.js",
+	"editorStyle": "file:build/style-index.css",
+	"style": "file:build/style-index.css"
+}

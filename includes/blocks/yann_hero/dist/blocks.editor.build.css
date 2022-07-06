@@ -1,0 +1,32 @@
+.block-editor-block-list__block[data-type="yann/hero"] p,
+.block-editor-block-list__block[data-type="yann/hero"] h1,
+.block-editor-block-list__block[data-type="yann/hero"] h5 {
+  line-height: 1.2 !important; }
+
+.block-editor-block-list__block[data-type="yann/hero"] .typed-content p {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+.block-editor-block-list__block[data-type="yann/hero"] .typed-content pre {
+  display: block; }
+
+.block-editor-block-list__block[data-type="yann/hero"] .typed-content p:first-child {
+  margin-top: 0; }
+
+.block-editor-block-list__block[data-type="yann/hero"] .typed-content {
+  font-size: 40px;
+  font-family: "Heebo", sans-serif; }
+
+.block-editor-block-list__block[data-type="yann/hero"] .typed-content .oneline {
+  display:flex; }
+
+.block-editor-block-list__block[data-type="yann/hero"] .animated-headline--strings p {
+  color: inherit;
+  display: none; }
+
+.block-editor-block-list__block[data-type="yann/hero"] .animated-headline--strings p:first-child {
+  display: block; }
+
+.block-editor-block-list__block[data-type="yann/hero"].is-typing .animated-headline--strings p,
+.block-editor-block-list__block[data-type="yann/hero"] .yann-hero.is-selected .animated-headline--strings p {
+  display: block; }

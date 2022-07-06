@@ -1,0 +1,22 @@
+.yann_contact {
+    font-family: "Heebo", sans-serif;
+    font-weight: bold;
+    line-height: 1.5em;
+    border: 0.4rem solid #4A6D7C;
+    padding: 3vw;
+    margin-left:40px;
+    margin-right:40px;
+    width:auto; }
+
+.yann_contact .social-box {
+    display: inline-block;
+    line-height: calc(0.9rem + 2.2vw);font-size:calc(0.9rem + 0.5vw); }
+.yann_contact .mark {
+    background-image: linear-gradient(transparent 50%, rgba(173, 234, 234, 0.5) 50%); }
+
+@media (max-width: 768px) {
+    .yann_contact_title{
+        font-size: calc(2rem + 1vw)!important; }
+    .yann_contact .social-box{
+        line-height: calc(1.2rem + 2.5vw)!important;
+        font-size:calc(0.9rem + 1vw)!important; } }

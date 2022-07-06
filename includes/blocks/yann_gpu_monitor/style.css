@@ -1,0 +1,90 @@
+/* Style the tab */
+.wp-block-yannyann-box-gpumonitor {
+	max-width: 1200px!important;
+}
+
+.yannyann-gpumonitor-tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+  
+/* Style the buttons that are used to open the tab content */
+.yannyann-gpumonitor-tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+  
+/* Change background color of buttons on hover */
+.yannyann-gpumonitor-tab button:hover {
+    background-color: #ddd;
+}
+  
+/* Create an active/current tablink class */
+.yannyann-gpumonitor-tab button.active {
+    background-color: #ccc;
+}
+  
+/* Style the tab content */
+.yannyann-gpumonitor-console-pages .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.yannyann-gpumonitor-h3 {
+    text-align: center;
+}
+
+.yannyann-gpumonitor-description {
+    text-align: center;
+}
+
+.yannyann-gpumonitor-span {
+    background-image: linear-gradient(transparent 50%,rgba(173,234,234,.5) 0);
+    background-repeat: no-repeat;
+    display: inline-block;
+    line-height: 30px;
+    padding: 0 5px;
+}
+
+.yannyann-gpumonitor-box .start {
+    display: none;
+}
+
+.collapsible {
+    cursor: pointer;
+    /* padding: 18px; */
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+}
+
+.active, .collapsible:hover {
+    background-color: #ccc;
+}
+
+.users-proc {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+button.collapsible::after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+button.collapsible.active:after {
+    content: "\2212";
+}

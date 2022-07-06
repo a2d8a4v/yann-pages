@@ -1,0 +1,10 @@
+.yann_professor{
+    font-family: "Heebo",sans-serif;
+    font-weight: bold;
+    line-height: 1.5em;
+    font-size: calc(0.9rem + 0.7vw);
+    background-color:#d6f4f4;
+    padding: 3vw; }
+
+.yann_professor a, .yann_professor .fa-envelope{
+    margin-bottom:0px!important; }

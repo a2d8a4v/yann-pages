@@ -1,0 +1,144 @@
+/*--------------------------------------------------------------
+# Yann Block
+--------------------------------------------------------------*/
+.yann-hero {
+  padding-top: 3.25em;
+  padding-bottom: 2.5em;
+}
+
+@media only screen and (min-width: 700px) {
+  .yann-hero {
+    padding-top: 4.5em;
+    padding-bottom: 0;
+  }
+}
+
+.yann-hero.has-center-content,.yann-hero .typed-content.has-center-content {
+  text-align: center;
+}
+
+.yann-hero.has-right-content,.yann-hero .typed-content.has-right-content {
+  text-align: right;
+}
+
+.yann-hero + p,
+.yann-hero + [class*="wp-block"] {
+  margin-top: 2.75em;
+}
+
+@media only screen and (min-width: 700px) {
+  .yann-hero + p,
+  .yann-hero + [class*="wp-block"] {
+    margin-top: 7.5em;
+  }
+}
+
+.yann-hero .subHeading {
+  padding-top: 0;
+  margin-bottom: 2em;
+}
+
+.yann-hero .subHeading:not(.has-text-color) {
+  color: #535353;
+}
+
+.yann-hero .lastName,
+.yann-hero .firstName {
+  margin-bottom: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.yann-hero .lastName,
+.yann-hero .firstName {
+  font-size: 90px;
+}
+
+@media screen and (min-width: 600px) {
+  .yann-hero .lastName,
+  .yann-hero .firstName {
+    font-size: calc(90px + 60 * ((100vw - 600px) / 600));
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .yann-hero .lastName,
+  .yann-hero .firstName {
+    font-size: 150px;
+  }
+}
+
+@media only screen and (max-width: 599px) {
+  .yann-hero .lastName,
+  .yann-hero .firstName {
+    font-size: 70px;
+    font-size: 4.375rem;
+  }
+}
+
+@media only screen and (max-width: 399px) {
+  .yann-hero .lastName,
+  .yann-hero .firstName {
+    font-size: 52px;
+    font-size: 3.25rem;
+  }
+}
+
+.yann-hero.has-left-content .lastName {
+  margin-left: 3vw;
+}
+
+@media only screen and (min-width: 400px) {
+  .yann-hero.has-left-content .lastName {
+    margin-left: 5.5vw;
+  }
+}
+
+.yann-hero.has-left-content .typed-content {
+  margin-left: 3.2vw;
+}
+
+@media only screen and (min-width: 400px) {
+  .yann-hero.has-left-content .typed-content {
+    margin-left: 5.7vw;
+  }
+}
+
+.yann-hero .lastName {
+  display: block;
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
+.yann-hero .typed-content {
+  margin-top: 10px;
+}
+
+.yann-hero .typed-content h2 {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.yann-hero .typed-content .one-line {
+  display:flex !important;
+}
+
+.wp-block-yann-hero {
+  margin-top: 20px;
+}
+
+.wp-block-yann-hero .animated-headline--strings {
+  display: none;
+}
+
+.wp-block-yann-hero .animated-headline--strings p {
+  color: inherit;
+}
+
+.yann_hello {
+  font-size: calc(0.9rem + 1.5vw);
+}
+
+.yann_goodnews {
+  background-image: linear-gradient(transparent 50%, rgba(173, 234, 234, 0.5) 50%);
+}
