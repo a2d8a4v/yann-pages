@@ -7,6 +7,31 @@
     var tab_content = $(".yannyann-gpumonitor-tab, .yannyann-gpumonitor-console-pages");
     var interval    = 0;
 
+    function dataProcessing(items) {
+        items.forEach(function(item){
+            var status = [];
+            var index = 0;
+
+            for (const [key, value] of Object.entries(item.status)) {
+                status.push(value);
+            }
+            
+            item.gpu_infos.forEach(function(gpu){
+                item.rdm  = item.name;
+                // gpu.gpu_util  = status[index].gpu_util;
+                gpu.mem_free  = status[index].mem_free;
+                gpu.mem_total = status[index].mem_total;
+                gpu.mem_used  = status[index].mem_used;
+                // gpu.gpu_temp  = status[index].gpu_temp;
+                // gpu.gpu_name  = status[index].gpu_name;
+                gpu.proc      = status[index].proc;
+                // gpu.proc = procs[index];
+                index += 1;
+            });
+        });
+
+    }
+
     function SelectGPUMonitorUL() {
         return $(".wp-block-yannyann-box-gpumonitor .yannyann-gpumonitor-box");
     }
@@ -57,7 +82,7 @@
             duration: 1400,
             color: '#FFEA82',
             trailColor: '#eee',
-            svgStyle: {width: '100%', height: '100%'},
+            svgStyle: {width: '100%', height: '10px'},
             from: {color: '#FFEA82'},
             to: {color: '#ED6A5A'},
             step: (state, bar) => {
@@ -79,7 +104,7 @@
         var name = "GPU "+idx+" ("+gpu.gpu_name+")";
         var temperature = gpu.gpu_temp+"℃";
         var gpu_mode = (gpu.com_mode.toLowerCase() == 'default')?``:` - <mark class="">Exclusive Mode</mark>`;
-        return `${name}${gpu_mode} - ${temperature}`;
+        return `${name}${gpu_mode} → ${temperature}`;
     }
 
     function MemUsedTotal(gpu) {
@@ -98,8 +123,41 @@
         return gpu.proc.length;
     }
 
-    function GPUProcBtn(gpu) {
-        return `${gpu.proc.length} ${gpu.proc.length?`processes`:`process`} exist.`;
+    function GPUUtilTotal() {
+    }
+
+    function GPUStyleFanPower(style) {
+        return (style.fan_and_power) ? `block`: `hidden`;
+    }
+
+    function GPUStyleProcUser(style) {
+        return (style.prce_shown_for_loginusers) ? `block`: `hidden`;
+    }
+
+    function GPUProcBtn(gpu, style) {
+
+        var users_name = `<div class="pt-2 px-2">`;
+        var has_user = false;
+        gpu.proc.forEach(function(proc_,idx_, arr){
+            //var proc_num
+            if (proc_.user != 'root'){
+                var ur_pid = `<div class="text-sm text-gray-900 font-bold">${proc_.user}</div>`;
+                var last = (idx_ === arr.length-1 )?``:`border-b`;
+            
+                users_name += `<div class="${last}">${ur_pid}</div>`;
+                has_user = true;
+            }            
+        });
+        users_name += `</div>`;
+
+        if (has_user == false) {
+            users_name = ``;
+        }
+
+        var final = `${gpu.proc.length} ${gpu.proc.length?`processes`:`process`} exist.`;
+        var rtn = (style.users_showon_collapsebutton) ? final + users_name : final;
+
+        return rtn;
     }
 
     function GPUUsersProc(gpu) {
@@ -114,6 +172,13 @@
     }
 
     function MakeCard(item, gpu, idx) {
+
+        // style
+        var style = item.style;
+        var open_fan_power_id   = `gpu-style-fan-power-${idx}-${item.rdm}`;
+        var open_fan_power_css  = GPUStyleFanPower(style);
+        var open_proc_users_id  = `gpu-style-procs-users-${idx}-${item.rdm}`;
+        var open_proc_users_css = GPUStyleProcUser(style);
 
         // utilities
         var gpu_card       = `gpu-card-${idx}-${item.rdm}`;
@@ -135,18 +200,18 @@
                     <div class="bg-white shadow rounded-lg overflow-hidden">
                         <div class="bg-cover bg-center bg-transparent h-60 p-4">
                             <div class="p-4">
-                                <p class="uppercase tracking-wide text-base font-bold text-gray-700" id="${name_mode_temp}">${NameModeTemp(gpu, idx)}</p>
+                                <p class="uppercase tracking-wide text-base font-bold text-green-500" id="${name_mode_temp}">${NameModeTemp(gpu, idx)}</p>
                             </div>
                             <div class="px-4">
-                                ${gpu_util_content}
                                 <p class="uppercase tracking-wide text-base text-gray-700">GPU Utilities</p>
+                                ${gpu_util_content}
                             </div>
                             <div class="px-4">
-                                ${mem_util_content}
                                 <p class="uppercase tracking-wide text-base text-gray-700">MEM Utilities: <span class="text-gray-800 font-bold" id="${mem_used_total}">${MemUsedTotal(gpu)}</span></p>
+                                ${mem_util_content}
                             </div>
                         </div>
-                        <div class="flex p-4 border-t border-gray-300 text-gray-700">
+                        <div class="${open_fan_power_css} flex p-4 border-t border-gray-300 text-gray-700" id="${open_fan_power_id}">
                             <div class="flex-1 inline-flex items-center">
                                 <div class="pl-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -168,8 +233,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="px-4 pt-3 pb-4 border-t border-gray-300 bg-gray-100">
-                            <button class="text-sm p-3 collapsible" proc=${GPUProcAttr(gpu)} id="${gpu_proc_btn}">${GPUProcBtn(gpu)}</button>
+                        <div class="${open_proc_users_css} px-4 pt-3 pb-4 border-t border-gray-300 bg-gray-100" id="${open_proc_users_id}">
+                            <button class="text-sm p-3 collapsible" proc=${GPUProcAttr(gpu)} id="${gpu_proc_btn}">${GPUProcBtn(gpu, style)}</button>
                             <div class="items-center users-proc" id="${gpu_user_proc}">${GPUProcAttr(gpu)?`<div>${GPUUsersProc(gpu)}</div>`:``}</div>
                         </div>
                     </div>
@@ -231,14 +296,21 @@
 
                 var id_rtn = {};
                 var idx = gpu.index;
+
+                // values
                 id_rtn.name_mode_temp = `gpu-name-mode-temp-${idx}-${item.rdm}`;
                 id_rtn.gpu_util_id    = `gpu-util-${idx}-${item.rdm}`;
+                id_rtn.gpu_used_total = `gpu-util-used-total-${idx}-${item.rdm}`; // it is not used
                 id_rtn.mem_util_id    = `mem-util-${idx}-${item.rdm}`;
                 id_rtn.mem_used_total = `gpu-mem-used-total-${idx}-${item.rdm}`;
                 id_rtn.gpu_fan_used   = `gpu-fan-${idx}-${item.rdm}`;
                 id_rtn.gpu_power_used = `gpu-power-${idx}-${item.rdm}`;
                 id_rtn.gpu_proc_btn   = `gpu-proc-${idx}-${item.rdm}`;
                 id_rtn.gpu_user_proc  = `gpu-users-proc-${idx}-${item.rdm}`;
+
+                // style
+                id_rtn.open_fan_power = `gpu-style-fan-power-${idx}-${item.rdm}`;
+                id_rtn.open_proc_user = `gpu-style-procs-users-${idx}-${item.rdm}`;
                 
                 rtn[`gpu-card-${idx}-${item.rdm}`] = {
                     name: item.name,
@@ -269,13 +341,15 @@
                 dataType: "json",
                 data: data,
                 success: function (data) {
-                    if ( data.success === true ) {
-                        var items = data.data.data;
-                        resolve(items);
-                    } else if ( data.success == false ) {
-                        var info = data.data.errmessage;
-                        reject(info);
-                    }
+                    dataProcessing(data.data.data);
+                    resolve(data.data.data);
+                    // if ( data.success === true ) {
+                    //     var items = data.data.data;
+                    //     resolve(items);
+                    // } else if ( data.success == false ) {
+                    //     var info = data.data.errmessage;
+                    //     reject(info);
+                    // }
                 },
                 error: function (error) {
                     reject(error);
@@ -318,14 +392,21 @@
                     var idx   = gpu.index;
                     var point = `gpu-card-${idx}-${item.rdm}`;
                     var _get  = ids[point].ids;
+                    var style = item.style;
 
+                    // update values
                     $(`#${_get.name_mode_temp}`).html(NameModeTemp(gpu, idx));
+                    // $(`#${_get.gpu_used_total}`).html(GPUUtilTotal(gpu)); // it is not used
                     $(`#${_get.mem_used_total}`).html(MemUsedTotal(gpu));
                     $(`#${_get.gpu_fan_used}`).html(GPUFan(gpu));
                     $(`#${_get.gpu_power_used}`).html(GPUPowerUsed(gpu));
-                    $(`#${_get.gpu_proc_btn}`).html(GPUProcBtn(gpu));
+                    $(`#${_get.gpu_proc_btn}`).html(GPUProcBtn(gpu, style));
                     $(`#${_get.gpu_proc_btn}`).attr("proc",GPUProcAttr(gpu));
                     $(`#${_get.gpu_user_proc}`).html(`${GPUProcAttr(gpu)?`<div>${GPUUsersProc(gpu)}</div>`:``}`);
+
+                    // update styles
+                    $(`#${_get.open_fan_power}`).removeClass("block hidden").addClass(GPUStyleFanPower(style));
+                    $(`#${_get.open_proc_user}`).removeClass("block hidden").addClass(GPUStyleProcUser(style));
                     
                     setProgressObject(_get.gpu_util_id, pgs_objs[_get.gpu_util_id].o, gpu, pgs_objs[_get.gpu_util_id].t);
                     setProgressObject(_get.mem_util_id, pgs_objs[_get.mem_util_id].o, gpu, pgs_objs[_get.mem_util_id].t);
@@ -356,7 +437,7 @@
                     });
 
                     // Interval call
-                    interval = 10;
+                    interval = 20;
                     setInterval(function(){
                         UpdateCards(ele, ids, prgres_obs, GPUsDATAProcessing, noGPUsData);
                     }, interval * 1000);
