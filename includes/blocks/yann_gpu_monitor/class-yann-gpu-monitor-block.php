@@ -235,8 +235,16 @@ class Yann_GPU_Monitor {
 	 * 
 	 */
 	public function YANN_NTNUSMIL_PAGE_GPUMonitor_fronted_ajax_call( $POST ) {
+
+		// get data from API
 		$tmp_GPU_MONITOR_API = new GPU_MONITOR_API();
 		$data = $tmp_GPU_MONITOR_API->GPU_MONITOR_API_handle();
+
+		// style
+		$tmp_global_control_gpu_monitor = new GLOBAL_CONTROL_GPU_MONITOR();
+		$style_open_fan_power = get_option($tmp_global_control_gpu_monitor->gpumonitor_openfanandpower, "");
+		$style_users_showon_collapsebutton = get_option($tmp_global_control_gpu_monitor->gpumonitor_showuserscollapsebutton, "");
+		$prce_shown_for_loginusers = get_option($tmp_global_control_gpu_monitor->gpumonitor_prceshownforloginusers, "");
 
 		// if error occured
 		if ( array_key_exists( 'error' , $data ) ) {
@@ -258,7 +266,37 @@ class Yann_GPU_Monitor {
 				$host_data["rdm"] = $host_name;
 				$this->_save_rdm[] = $host_data["rdm"];
 			}
-			$rtn[] = $host_data;	
+			// style
+			$style_prce_shown_for_loginusers = TRUE;
+			if ($prce_shown_for_loginusers) {
+				if (! is_user_logged_in()) {
+					$style_prce_shown_for_loginusers = FALSE;
+				}
+			}
+			$host_data["style"] = array(
+				'fan_and_power' => $style_open_fan_power,
+				'users_showon_collapsebutton' => $style_users_showon_collapsebutton,
+				'prce_shown_for_loginusers' => $style_prce_shown_for_loginusers,
+			);
+			// filter the data
+			if ($prce_shown_for_loginusers) {
+				if (! is_user_logged_in()) {
+					$new_status = array();
+					foreach($host_data['status'] as $status_dict) {
+						$new_procs = array();
+						foreach($status_dict['proc'] as $procs) {
+							$procs['pid'] = 'secret';
+							$procs['user'] = 'secret';
+							$procs['command'] = 'secret';
+							$new_procs[] = $procs;
+						}
+						$status_dict['proc'] = $new_procs;
+						$new_status[] = $status_dict;
+					}
+					$host_data['status'] = $new_status;
+				}
+			}
+			$rtn[] = $host_data;
 		}
 		
 		return array( 'success' => true, 'data' => $rtn, 'update_time' => $update_time );
